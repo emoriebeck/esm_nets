@@ -365,6 +365,33 @@ consc_items_sampled, neuro_items_sampled, openn_items_sampled, sit_items);
   //   timeline: timeline
   // });
 
+var csvString = jsPsych.data.dataAsCSV();
+var file = SID_name+"_"+start_month+"-"+start_day+"_"+start_hour+".csv";
+
+  function uploadFiles(file, name) {
+
+  try {
+    var dropbox = "ESM Data";
+    var folder, folders = DriveApp.getFoldersByName(dropbox);
+
+    if (folders.hasNext()) {
+      folder = folders.next();
+    } else {
+      folder = DriveApp.createFolder(dropbox);
+    }
+
+    var file = folder.createFile(file);
+    file.setName(name)
+    file.setDescription("Uploaded by " + name);
+
+  } catch (error) {
+
+    return error.toString();
+
+  }
+
+}
+
   function saveData(filename, filedata){
   	$.ajax({
   		type:'post',
@@ -376,8 +403,9 @@ consc_items_sampled, neuro_items_sampled, openn_items_sampled, sit_items);
   jsPsych.init({
   	// display_element: $('#jspsych-target'),
   	timeline: timeline,
-  	on_finish: function(){saveData(SID_name+"_"+start_month+"-"+start_day+"_"+start_hour+".csv",
-      jsPsych.data.dataAsCSV())}
+    on_finish: function(){uploadFiles(csvString,file)}
+  	//on_finish: function(){saveData(SID_name+"_"+start_month+"-"+start_day+"_"+start_hour+".csv",
+    //  jsPsych.data.dataAsCSV())}
   });
 </script>
 </html>
