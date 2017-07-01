@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+  <head>
+    <title>My experiment</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="jspsych-5.0.3/jspsych.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-survey-text.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-single-stim.js"></script>
+    <script src="jspsych-5.0.3/plugins/jspsych-survey-likert.js"></script>
+    <link href="jspsych-5.0.3/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+  </head>
+  <body>
+  </body>
+  <script>
+
+
+  /* define welcome message block */
+  // defining groups of questions that will go together.
+  var subject_page = {
+    type: 'survey-text',
+    questions: ["What is your ID?"],
+  };
+  /* Define extraversion items */
+  var E_Soc_Qs = [
+    "Is outgoing, sociable.", "Is talkative.",
+    "Tends to be quiet.", "Is sometimes shy, introverted."
+  ];
+  var E_Assert_Qs = [
+     "Has an assertive personality.", "Is dominant, acts as a leader.",
+     "Finds it hard to influence people.", "Prefers to have others take charge."
+  ];
+  var E_Ener_Qs = [
+     "Is full of energy.", "Shows a lot of enthusiasm.",
+     "Rarely feels excited or eager.", "Is less active than other people."
+  ];
+  /* Define agreeableness items */
+  var A_Comp_Qs = [
+     "Is compassionate, has a soft heart.", "Is helpful and unselfish with others.",
+     "Feels little sympathy for others.", "Can be cold and uncaring."
+  ];
+  var A_Resp_Qs = [
+     "Is respectful, treats others with respect.", "Is polite, courteous to others.",
+     "Starts arguments with others.", "Is sometimes rude to others."
+  ];
+  var A_Trust_Qs = [
+     "Has a forgiving nature.", "Assumes the best about people.",
+     "Tends to find fault with others.", "Is suspicious of others' intentions."
+  ];
+  /* Define conscientiousness items */
+  var C_Org_Qs = [
+     "Is systematic, likes to keep things in order.", "Keeps things neat and tidy.",
+     "Tends to be disorganized.", "Leaves a mess, doesn't clean up."
+  ];
+  var C_Prod_Qs = [
+     "Is efficient, gets things done.", "Is persistent, works until the task is finished.",
+     "Tends to be lazy.", "Has difficulty getting started on tasks."
+  ];
+  var C_Resp_Qs = [
+     "Is dependable, steady.", "Is reliable, can always be counted on.",
+     "Can be somewhat careless.", "Sometimes behaves irresponsibly."
+  ];
+  /* Define neuroticism items */
+  var N_Anx_Qs = [
+     "Can be tense.", "Worries a lot.",
+     "Is relaxed, handles stress well.", "Rarely feels anxious or afraid."
+  ];
+  var N_Dep_Qs = [
+     "Often feels sad.", "Tends to feel depressed, blue.",
+     "Stays optimistic after experiencing a setback.",
+     "Feels secure, comfortable with self."
+  ];
+  var N_EmoVol_Qs = [
+     "Is moody, has up and down mood swings.", "Is temperamental, gets emotional easily.",
+     "Is emotionally stable, not easily upset.", "Keeps their emotions under control."
+  ];
+  /* Define openness items */
+  var O_Int_Qs = [
+     "Is curious about many different things.", "Is complex, a deep thinker.",
+     "Avoids intellectual, philosophical discussions.",
+     "Has little interest in abstract ideas."
+  ];
+  var O_Aes_Qs = [
+     "Is fascinated by art, music, or literature.", "Values art and beauty.",
+     "Has few artistic interests.", "Thinks poetry and plays are boring."
+  ];
+  var O_Crea_Qs = [
+     "Is inventive, finds clever ways to do things.", "Is original, comes up with new ideas.",
+     "Has little creativity.", "Has difficulty imagining things."
+  ];
+    var sit_items = [
+      "Work has to be done.", "Deep thinking is required.",
+      "Somebody is being threatened, accused, or criticized.",
+      "Potential romantic partners are present.", "The situation is pleasant.",
+      "The situation contains negative feelings (e.g., stress, anxiety, guilt, etc.).",
+      "Somebody is being deceived.", "Social interactions are possible or required."
+    ];
+    var sit_items_2 = [
+      {"Question": "Work has to be done.", "item": "D1"}, 
+      {"Question": "Deep thinking is required.", "item": "D2"},
+      {"Question": "Somebody is being threatened, accused, or criticized.", "item": "D3"},
+      {"Question": "Potential romantic partners are present.", "item": "D3"}, 
+      {"Question": "The situation is pleasant.", "item": "D3"},
+      {"Question": "The situation contains negative feelings (e.g., stress, anxiety, guilt, etc.).", "item": "D3"},
+      {"Question": "Somebody is being deceived.", "item": "D3"}, 
+      {"Question": "Social interactions are possible or required.", "item": "D3"}
+    ];
+
+  var pers_items_sampled = [
+    jsPsych.randomization.sample(E_Soc_Qs, 1, false),
+    jsPsych.randomization.sample(E_Assert_Qs, 1, false),
+    jsPsych.randomization.sample(E_Ener_Qs, 1, false),
+    jsPsych.randomization.sample(A_Comp_Qs, 1, false),
+    jsPsych.randomization.sample(A_Resp_Qs, 1, false),
+    jsPsych.randomization.sample(A_Trust_Qs, 1, false),
+    jsPsych.randomization.sample(C_Org_Qs, 1, false),
+    jsPsych.randomization.sample(C_Prod_Qs, 1, false),
+    jsPsych.randomization.sample(C_Resp_Qs, 1, false),
+    jsPsych.randomization.sample(N_Anx_Qs, 1, false),
+    jsPsych.randomization.sample(N_Dep_Qs, 1, false),
+    jsPsych.randomization.sample(N_EmoVol_Qs, 1, false),
+    jsPsych.randomization.sample(O_Int_Qs, 1, false),
+    jsPsych.randomization.sample(O_Aes_Qs, 1, false),
+    jsPsych.randomization.sample(O_Crea_Qs, 1, false),
+  ];
+
+  var pers_sit_items_sampled = pers_items_sampled.concat(sit_items);
+
+
+  var E_beh_items = [
+     "Went out to socialize.", "Took the lead in organizing a project or activity.",
+     "Expressed my own opinion.", "Felt cheerful and happy."
+  ];
+
+  var A_beh_items = [
+    "Criticized someone.", "Made a decision without consulting the others involved.",
+    "Accused someone of talking behind my back.", "Had doubts about someone’s honesty."
+  ];
+
+  var C_beh_items = [
+    "Checked out every detail on a task I completed.",
+    "Did poorly on an assignment or exam.", "Finished a task on time.",
+    "Forgot about an appointment.",
+    "Skipped class, work, or other scheduled activities on a whim.",
+    "Reflected on the consequences of an action before going ahead with something."
+  ];
+
+  var N_beh_items = [
+    "Felt anxious about work that needed to be done.",
+    "Experienced a lot of stress.", "Felt sad.", "Put myself down.",
+    "Complained about a problem I was having.",
+    "Gave in to a bad habit when I was nervous."
+  ];
+
+  var O_beh_items = [
+     "Read a play or novel.", "Thought about my emotional reactions to something.",
+     "Discussed politics.", "Tried out a new activity for the sake of doing something different."
+  ];
+
+  var beh_items = E_beh_items.concat(A_beh_items, C_beh_items, N_beh_items, O_beh_items);
+
+  var beh_items_shuffled = jsPsych.randomization.shuffle(beh_items);
+
+  var pers_sit_items_sampled_shuffled = jsPsych.randomization.shuffle(pers_sit_items_sampled);
+
+  /* define likert scale */
+  var scale1 = ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"];
+  new_sit =[];
+  for (var i=0; i<sit_items_2.length; i++){
+    var new_sit = new_sit.concat(sit_items_2[i].Question)
+  };
+  console.log(new_sit);
+
+
+  var pers_sit_block = {
+    type: 'survey-likert',
+    questions: new_sit,
+    labels: [scale1, scale1, scale1, scale1, scale1, scale1, scale1, scale1],
+              //scale1, scale1, scale1, scale1, scale1, scale1, scale1, scale1,
+              //scale1, scale1, scale1, scale1, scale1, scale1, scale1],
+    preamble: "<p><strong>Please respond to each question relative to what you " +
+        "were just doing.</strong></p>",
+    data: {your_variable_name: sit_items_2.item}
+  };
+
+  var scale2 = ["Did Not Occur", "Occurred"];
+
+  var beh_block = {
+    type: 'survey-likert',
+    questions: beh_items_shuffled,
+    labels: [scale2, scale2, scale2, scale2, scale2, scale2, scale2, scale2,
+             scale2, scale2, scale2, scale2, scale2, scale2, scale2, scale2,
+             scale2, scale2, scale2, scale2, scale2, scale2, scale2, scale2],
+    preamble: "<p><strong>Please indicate which of the following occurred in " +
+        "the last hour.</strong></p>",
+    data: {your_variable_name: beh_items_shuffled}
+  };
+
+  // generate a random subject ID
+var SID = Math.floor(Math.random()*100000);
+
+// record the condition assignment in the jsPsych data
+// this adds a property called 'subject' and a property called 'condition' to every trial
+jsPsych.data.addProperties({
+  subject: SID
+});
+
+  /* create experiment timeline array */
+  var timeline = [];
+  timeline.push(subject_page);
+  timeline.push(pers_sit_block); //, beh_block
+
+  /* start the experiment */
+  jsPsych.init({
+    timeline: timeline
+  });
+</script>
+</html>
