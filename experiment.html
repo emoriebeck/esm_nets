@@ -8,7 +8,8 @@
     <script src="jspsych-5.0.3/plugins/jspsych-single-stim.js"></script>
     <script src="jspsych-5.0.3/plugins/jspsych-survey-likert.js"></script>
     <script src="jspsych-5.0.3/plugins/jspsych-call-function.js"></script>
-    <link href="jspsych-5.0.3/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+    <link href="jspsych-5.0.3/css/jspsych.css" rel="stylesheet" type="text/css", media="screen"></link>
+    <link rel="stylesheet" href="jspsych-5.0.3/css/jspsych_mobile.css" type="text/css" media="handheld"/>
   </head>
   <body>
   </body>
@@ -397,15 +398,16 @@ var file = SID_name+"_"+start_month+"-"+start_day+"_"+start_hour+".csv";
   		type:'post',
   		cache: false,
   		url: 'save_data.php', // this is the path to the above PHP script
+      //url: https://script.google.com/macros/s/AKfycbzV--xTooSkBLufMs4AnrCTdwZxVNtycTE4JNtaCze2UijXAg8/exec
   		data: {filename: filename, filedata: filedata}})
   }
   var currentTimeMS = Date.now();
   jsPsych.init({
   	// display_element: $('#jspsych-target'),
   	timeline: timeline,
-    on_finish: function(){uploadFiles(csvString,file)}
-  	//on_finish: function(){saveData(SID_name+"_"+start_month+"-"+start_day+"_"+start_hour+".csv",
-    //  jsPsych.data.dataAsCSV())}
+    //on_finish: function(){uploadFiles(csvString,file)}
+  	on_finish: function(){saveData(SID_name+"_"+start_month+"-"+start_day+"_"+start_hour+".csv",
+      jsPsych.data.dataAsCSV())}
   });
 </script>
 </html>
